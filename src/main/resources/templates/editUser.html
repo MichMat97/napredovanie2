@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="sk" xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrácia</title>
+  <link rel="icon" type="image/svg+xml" th:href="@{/img/motherboard-fill.svg}"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+          crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" th:href="@{/css/style.css}"/>
+  <script type="text/javascript" th:src="@{/JavaSctipt/editUserRedirect.js}"></script>
+</head>
+<body>
+<!-- navbar je upravenou verziou z https://getbootstrap.com/docs/5.3/components/navbar/ -->
+<nav class="navbar navbar-expand-md bg-primary menu-bar" data-bs-theme="dark">
+  <div class="container-fluid">
+    <div class="menu-item" id="lave-menu">
+      <a class="navbar-brand" href="https://www.skauting.sk/skauti/program/">
+        <img th:src="@{/img/logoSLSK.png}" class="logo-menu"  alt="logo"/>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" th:href="@{index}">Domov</a>
+          </li>
+          <li class="nav-item dropdown">
+            <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              Program
+            </button>
+            <ul class="dropdown-menu dropdown-menu">
+              <li><a class="dropdown-item" th:href="@{odborky}">Odborky</a></li>
+              <li><a class="dropdown-item disabled" aria-disabled="true">Výzvz</a></li>
+              <li><a class="dropdown-item disabled" aria-disabled="true">Voľné programové moduly</a></li>
+            </ul>
+
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Moje napredovanie</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{about}">O stránke</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="menu-item" id="stredne-menu">
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-light" type="submit">Search</button>
+      </form>
+    </div>
+    <div class="menu-item" id="prave-menu">
+      <div th:if="${#authentication.authenticated and #authentication.name != 'anonymousUser'}">
+        <div class="svetly-text">Prihlásený ako: <br>
+          <span th:text="${#authentication.name}"></span> </div>
+        <button class="btn btn-outline-light" type="button" th:onclick="|window.location.href='/logout'|">Odhlásiť</button>
+      </div>
+      <div th:if="${#authentication.name == 'anonymousUser' or !#authentication.authenticated}">
+        <button class="btn btn-outline-light" type="button" th:onclick="|window.location.href='/login'|">Prihlásiť</button>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <div class="row col-md-8 offset-md-2">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="text-center">Editácia používateľa</h2>
+      </div>
+      <div th:if="${param.success}">
+        <div class="alert alert-info">
+          Používateľ bol úspešne zmenený
+        </div>
+      </div>
+      <div class="card-body">
+        <form method="post" role="form" th:action="@{/editUser}" th:object="${user}">
+          <div class="form-group mb-3">
+            <label class="form-label">Meno</label>
+            <input class="form-control" id="firstName" th:required="String" required name="firstName" placeholder="Zadaj meno" th:value="${user.getName().split(' ')[0]}" type="text"/>
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label">Priezvisko</label>
+            <input class="form-control" id="lastName" th:required="String" required name="lastName" placeholder="Zadaj priezvisko" th:value="${user.getName().split(' ')[1]}" type="text"/>
+
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label">Email</label>
+            <input class="form-control" id="email" th:required="String" required name="email" placeholder="Zadaj e-mail" th:value="${user.getEmail()}" type="email"/>
+            <p th:errors="${user.getEmail()}" class="text-danger" th:if="${#fields.hasErrors('email')}"></p>
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label">Heslo</label>
+            <input class="form-control" id="password" th:required="String" required name="password" placeholder="Zadaj heslo" th:value="${user.getPassword()}" type="password"/>
+            <p th:errors="${user.getPassword()}" class="text-danger" th:if="${#fields.hasErrors('password')}"></p>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" type="submit">Uložiť</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

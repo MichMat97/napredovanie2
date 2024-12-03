@@ -1,0 +1,79 @@
+.svg {
+    filter: invert(100%);
+    margin-right: 1em;
+}
+
+.svetly-text {
+    color: white;
+}
+
+.menu {
+    border: 2px solid #ffffff;
+}
+.menu:hover {
+    background: #ffffff;
+    color: black;
+}
+.menu.active:hover {
+    background: #ffffff;
+    color: black;
+}
+
+.menu.active {
+    border-top-right-radius: 30%;
+}
+
+.form-center {
+    display:flex;
+    justify-content: center;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+.button-container-div {
+    text-align: center;
+}
+
+.zbierka-images {
+    width: 100%;
+    height: 225px;
+}
+
+.dokumenty {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dokumenty th {
+    background-color: grey;
+    color: black;
+    text-align: center;
+}
+
+.dokumenty table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.dokumenty tr:nth-child(even) td {
+    background-color: lightgray;
+}
+
+.dokumenty a:visited {
+    color: green;
+}
+
+.dokumenty a{
+    color: blue;
+}
+
+.dokumenty tr:hover td:not(td:last-child:hover){
+    background-color: darkblue;
+    color: white;
+}
+
+.dokumenty td a[href$=".pdf"]::after {
+    content: "(PDF)";
+}
