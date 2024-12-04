@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="stylesheet" th:href="@{/css/style.css}"/>
   <script type="text/javascript" th:src="@{/JavaSctipt/editUserRedirect.js}"></script>
+  <script type="text/javascript" th:src="@{/JavaSctipt/additionalRegistrationFormValidation.js}"></script>
 </head>
 <body>
 <!-- navbar je upravenou verziou z https://getbootstrap.com/docs/5.3/components/navbar/ -->
@@ -27,7 +28,7 @@
       <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" th:href="@{index}">Domov</a>
+            <a class="nav-link" aria-current="page" th:href="@{index}">Domov</a>
           </li>
           <li class="nav-item dropdown">
             <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -79,7 +80,7 @@
         </div>
       </div>
       <div class="card-body">
-        <form method="post" role="form" th:action="@{/editUser}" th:object="${user}">
+        <form method="post" role="form" onsubmit="return validation()" th:action="@{/editUser}" th:object="${user}">
           <div class="form-group mb-3">
             <label class="form-label">Meno</label>
             <input class="form-control" id="firstName" th:required="String" required name="firstName" placeholder="Zadaj meno" th:value="${user.getName().split(' ')[0]}" type="text"/>

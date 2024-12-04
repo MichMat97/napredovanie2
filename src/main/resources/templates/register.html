@@ -27,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbarColor02">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" th:href="@{index}">Domov</a>
+                        <a class="nav-link" aria-current="page" th:href="@{index}">Domov</a>
                     </li>
                     <li class="nav-item dropdown">
                         <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -84,24 +84,28 @@
                         <label class="form-label">Meno</label>
                         <input class="form-control" id="firstName" th:required="String" required name="firstName" placeholder="Zadaj meno" th:field="*{firstName}" type="text"/>
                         <p th:errors="*{firstName}" class="text-danger" th:if="${#fields.hasErrors('firstName')}"></p>
+                        <p id="firstNameError" class="text-danger"></p>
                     </div>
 
                     <div class="form-group mb-3">
                         <label class="form-label">Priezvisko</label>
                         <input class="form-control" id="lastName" th:required="String" required name="lastName" placeholder="Zadaj priezvisko" th:field="*{lastName}" type="text"/>
                         <p th:errors="*{lastName}" class="text-danger" th:if="${#fields.hasErrors('lastName')}"></p>
+                        <p id="lastNameError" class="text-danger"></p>
                     </div>
 
                     <div class="form-group mb-3">
                         <label class="form-label">Email</label>
                         <input class="form-control" id="email" th:required="String" required name="email" placeholder="Zadaj e-mail" th:field="*{email}" type="email"/>
                         <p th:errors="*{email}" class="text-danger" th:if="${#fields.hasErrors('email')}"></p>
+                        <p id="emailError" class="text-danger"></p>
                     </div>
 
                     <div class="form-group mb-3">
                         <label class="form-label">Heslo</label>
                         <input class="form-control" id="password" th:required="String" required name="password" placeholder="Zadaj heslo" th:field="*{password}" type="password"/>
                         <p th:errors="*{password}" class="text-danger" th:if="${#fields.hasErrors('password')}"></p>
+                        <p id="passwordError" class="text-danger"></p>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">Registrovať</button>
