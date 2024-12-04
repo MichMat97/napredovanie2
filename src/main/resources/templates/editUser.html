@@ -84,27 +84,31 @@
           <div class="form-group mb-3">
             <label class="form-label">Meno</label>
             <input class="form-control" id="firstName" th:required="String" required name="firstName" placeholder="Zadaj meno" th:value="${user.getName().split(' ')[0]}" type="text"/>
+            <p id="firstNameError" class="text-danger"></p>
           </div>
 
           <div class="form-group mb-3">
             <label class="form-label">Priezvisko</label>
             <input class="form-control" id="lastName" th:required="String" required name="lastName" placeholder="Zadaj priezvisko" th:value="${user.getName().split(' ')[1]}" type="text"/>
-
+            <p id="lastNameError" class="text-danger"></p>
           </div>
 
           <div class="form-group mb-3">
             <label class="form-label">Email</label>
             <input class="form-control" id="email" th:required="String" required name="email" placeholder="Zadaj e-mail" th:value="${user.getEmail()}" type="email"/>
             <p th:errors="${user.getEmail()}" class="text-danger" th:if="${#fields.hasErrors('email')}"></p>
+            <p id="emailError" class="text-danger"></p>
           </div>
 
           <div class="form-group mb-3">
             <label class="form-label">Heslo</label>
             <input class="form-control" id="password" th:required="String" required name="password" placeholder="Zadaj heslo" th:value="${user.getPassword()}" type="password"/>
             <p th:errors="${user.getPassword()}" class="text-danger" th:if="${#fields.hasErrors('password')}"></p>
+            <p id="passwordError" class="text-danger"></p>
           </div>
           <div class="form-group">
             <button class="btn btn-primary" type="submit">Uložiť</button>
+            <button class="btn btn-primary" type="button" th:onclick="|window.location.href='/users'|">Zrušiť</button>
           </div>
         </form>
       </div>

@@ -1,8 +1,13 @@
 function validation() {
-    var name = document.getElementById("firstName").value;
-    var surname = document.getElementById("lastName").value;
-    var pass = document.getElementById("password").value;
-    var email = document.getElementById("email").value;
+    document.getElementById("firstNameError").innerHTML = "";
+    document.getElementById("lastNameError").innerHTML = "";
+    document.getElementById("emailError").innerHTML = "";
+    document.getElementById("passwordError").innerHTML = "";
+
+    let name = document.getElementById("firstName").value;
+    let surname = document.getElementById("lastName").value;
+    let pass = document.getElementById("password").value;
+    let email = document.getElementById("email").value;
 
     if (name === "") {
         document.getElementById("firstNameError").innerHTML =

@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Setter
 @Getter
 @NoArgsConstructor
@@ -23,6 +21,4 @@ public class AchievementType
     @Column(nullable=false, unique=true)
     private String name;
 
-//    @ManyToMany(mappedBy="achievementTypes")
-//    private List<Part> parts;
 }
