@@ -1,7 +1,5 @@
 package com.vaii.napredovanie2;
 
-import com.vaii.napredovanie2.repository.UserRepository;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
