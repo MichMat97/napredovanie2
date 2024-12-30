@@ -1,5 +1,6 @@
 package com.vaii.napredovanie2.service;
 
+import com.vaii.napredovanie2.entity.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -27,4 +28,7 @@ public class UserDto
 
     @NotEmpty(message = "Heslo musi byt vyplnene")
     private String password;
+
+    @NotEmpty
+    private Role role;
 }
