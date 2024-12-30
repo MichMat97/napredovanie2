@@ -1,5 +1,6 @@
 package com.vaii.napredovanie2.service;
 
+import com.vaii.napredovanie2.entity.Achievement;
 import com.vaii.napredovanie2.repository.AchievementRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class ArchievementServiceImpl implements ArchievementService {
 
+
     @Autowired
     private AchievementRepository achievmentRepository;
 
@@ -21,7 +23,7 @@ public class ArchievementServiceImpl implements ArchievementService {
                 .map(achievement -> new ArchievementDto(
                         achievement.getId(),
                         achievement.getName(),
-                        achievement.getType().getName(),  // Assuming type is an AchievementType object
+                        achievement.getType(),  // Assuming type is an AchievementType object
                         achievement.getDescription(),
                         achievement.getImgPath()))
                 .collect(Collectors.toList());
@@ -32,9 +34,10 @@ public class ArchievementServiceImpl implements ArchievementService {
                 .map(achievement -> new ArchievementDto(
                         achievement.getId(),
                         achievement.getName(),
-                        achievement.getType().getName(),  // Assuming type is an AchievementType object
+                        achievement.getType(),  // Assuming type is an AchievementType object
                         achievement.getDescription(),
                         achievement.getImgPath()))
                 .collect(Collectors.toList());
     }
+
 }

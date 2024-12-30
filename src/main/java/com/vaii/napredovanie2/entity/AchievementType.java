@@ -6,12 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="achievementTypes")
+@Table(name="achievementtypes")
 public class AchievementType
 {
     @Id
@@ -20,5 +23,8 @@ public class AchievementType
 
     @Column(nullable=false, unique=true)
     private String name;
+
+    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Achievement> type = new ArrayList<>();
 
 }

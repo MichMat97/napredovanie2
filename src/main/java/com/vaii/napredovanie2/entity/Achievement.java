@@ -22,7 +22,7 @@ public class Achievement
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "type_id", nullable = false)
+    @JoinColumn(name = "type", nullable = false)
     private AchievementType type;
 
     @Column(length = 500)

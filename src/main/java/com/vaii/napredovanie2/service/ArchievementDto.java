@@ -1,5 +1,6 @@
 package com.vaii.napredovanie2.service;
 
+import com.vaii.napredovanie2.entity.AchievementType;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +19,7 @@ public class ArchievementDto {
     private String name;
 
     @NotEmpty
-    private String type;
+    private AchievementType type;
 
     private String shortDescription;
 
