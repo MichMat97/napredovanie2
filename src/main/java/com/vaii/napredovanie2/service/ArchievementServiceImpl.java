@@ -2,6 +2,7 @@ package com.vaii.napredovanie2.service;
 
 import com.vaii.napredovanie2.entity.Achievement;
 import com.vaii.napredovanie2.repository.AchievementRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,8 @@ public class ArchievementServiceImpl implements ArchievementService {
                         achievement.getName(),
                         achievement.getType(),  // Assuming type is an AchievementType object
                         achievement.getDescription(),
-                        achievement.getImgPath()))
+                        achievement.getImgPath(),
+                        achievement.getCardClass()))
                 .collect(Collectors.toList());
     }
 
@@ -36,8 +38,23 @@ public class ArchievementServiceImpl implements ArchievementService {
                         achievement.getName(),
                         achievement.getType(),  // Assuming type is an AchievementType object
                         achievement.getDescription(),
-                        achievement.getImgPath()))
+                        achievement.getImgPath(),
+                        achievement.getCardClass()))
                 .collect(Collectors.toList());
+    }
+
+    public ArchievementDto getAchievementsById(Long id) {
+        Achievement achievement = achievmentRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("Nenájdené napredovanie s id: " + id));
+
+        return new ArchievementDto(
+                achievement.getId(),
+                achievement.getName(),
+                achievement.getType(), // Získavame názov typu AchievementType
+                achievement.getDescription(),
+                achievement.getImgPath(),
+                achievement.getCardClass()
+        );
     }
 
 }

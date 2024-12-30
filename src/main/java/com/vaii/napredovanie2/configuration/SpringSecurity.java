@@ -54,6 +54,7 @@ public class SpringSecurity {
                 .requestMatchers("/odborky").permitAll()
                 .requestMatchers("/kontakt").permitAll()
                 .requestMatchers("/about").permitAll()
+                .requestMatchers("/achievement/**").permitAll()
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/users").hasRole("ADMIN")
         ).formLogin(

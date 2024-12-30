@@ -31,4 +31,7 @@ public class Achievement
     @Column(nullable=false)
     private String imgPath;
 
+    @Column(name="cardclass", nullable = false)
+    private String cardClass;
+
 }

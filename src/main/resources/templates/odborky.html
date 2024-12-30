@@ -65,89 +65,91 @@
 <!-- cards je upravenou verziou https://getbootstrap.com/docs/5.3/components/card/ -->
 <div class="card-group">
     <!-- --------------------------------------------------------------------- -->
-<!--    <div class="col" th:each="achievement : ${achievements}">-->
+    <div class="col" th:each="achievement : ${odborky}">
+        <a th:href="@{'/achievement/' + ${achievement.id}}" style="text-decoration: none; color: inherit;">
+        <div th:class="'card h-100 ' + ${achievement.cardClass}">
+            <img th:src="@{${achievement.imagePath}}" class="card-img-top" th:alt="${achievement.name}">
+            <div class="card-body">
+                <h5 class="card-title"><p th:text="${achievement.name}"></p></h5>
+                <p class="card-text"><p th:text="${achievement.description}"></p></p>
+            </div>
+        </div>
+        </a>
+    </div>
+    <!-- --------------------------------------------------------------------- -->
+<!--    <div class="col">-->
 <!--        <div class="card h-100 card_bg_skauti">-->
-<!--            <img th:src="@{${achievement.imagePath}}" class="card-img-top" th:alt="${achievement.name}">-->
+<!--            <img src="img/odborky/botanik.png" class="card-img-top" alt="Boranik">-->
 <!--            <div class="card-body">-->
-<!--                <h5 class="card-title"><p th:text="${achievement.name}"></p></h5>-->
-<!--                <p class="card-text"><p th:text="${achievement.description}"></p></p>-->
+<!--                <h5 class="card-title">Botanik</h5>-->
+<!--                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
 <!--            </div>-->
 <!--        </div>-->
 <!--    </div>-->
-    <!-- --------------------------------------------------------------------- -->
-    <div class="col">
-        <div class="card h-100 card_bg_skauti">
-            <img src="img/odborky/botanik.png" class="card-img-top" alt="Boranik">
-            <div class="card-body">
-                <h5 class="card-title">Botanik</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-        </div>
-    </div>
 
-    <div class="col">
-        <div class="card h-100 card_bg_vlcata">
-            <img src="img/odborky/animacik.png" class="card-img-top" alt="Animáčik">
-            <div class="card-body">
-                <h5 class="card-title">Animáčik</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card h-100 card_bg_roveri">
-            <img src="img/odborky/cajickar.png" class="card-img-top" alt="Čajíčkar">
-            <div class="card-body">
-                <h5 class="card-title">Čajíčkar</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card h-100 card_bg_vlcata">
-            <img src="img/odborky/anjel.png" class="card-img-top" alt="Anjel">
-            <div class="card-body">
-                <h5 class="card-title">Anjel</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card h-100 card_bg_roveri">
-            <img src="img/odborky/charat.png" class="card-img-top" alt="Chatár">
-            <div class="card-body">
-                <h5 class="card-title">Chatár</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card h-100 card_bg_skauti">
-            <img src="img/odborky/geolog.png" class="card-img-top" alt="Geológ">
-            <div class="card-body">
-                <h5 class="card-title">Geológ</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card h-100 card_bg_skauti">
-            <img src="img/odborky/hvezdar.png" class="card-img-top" alt="Hvezdár">
-            <div class="card-body">
-                <h5 class="card-title">Hvezdár</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card h-100 card_bg_roveri">
-            <img src="img/odborky/mentor.png" class="card-img-top" alt="Mentor">
-            <div class="card-body">
-                <h5 class="card-title">Mentor</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-        </div>
-    </div>
+<!--    <div class="col">-->
+<!--        <div class="card h-100 card_bg_vlcata">-->
+<!--            <img src="img/odborky/animacik.png" class="card-img-top" alt="Animáčik">-->
+<!--            <div class="card-body">-->
+<!--                <h5 class="card-title">Animáčik</h5>-->
+<!--                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="col">-->
+<!--        <div class="card h-100 card_bg_roveri">-->
+<!--            <img src="img/odborky/cajickar.png" class="card-img-top" alt="Čajíčkar">-->
+<!--            <div class="card-body">-->
+<!--                <h5 class="card-title">Čajíčkar</h5>-->
+<!--                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="col">-->
+<!--        <div class="card h-100 card_bg_vlcata">-->
+<!--            <img src="img/odborky/anjel.png" class="card-img-top" alt="Anjel">-->
+<!--            <div class="card-body">-->
+<!--                <h5 class="card-title">Anjel</h5>-->
+<!--                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="col">-->
+<!--        <div class="card h-100 card_bg_roveri">-->
+<!--            <img src="img/odborky/charat.png" class="card-img-top" alt="Chatár">-->
+<!--            <div class="card-body">-->
+<!--                <h5 class="card-title">Chatár</h5>-->
+<!--                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="col">-->
+<!--        <div class="card h-100 card_bg_skauti">-->
+<!--            <img src="img/odborky/geolog.png" class="card-img-top" alt="Geológ">-->
+<!--            <div class="card-body">-->
+<!--                <h5 class="card-title">Geológ</h5>-->
+<!--                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="col">-->
+<!--        <div class="card h-100 card_bg_skauti">-->
+<!--            <img src="img/odborky/hvezdar.png" class="card-img-top" alt="Hvezdár">-->
+<!--            <div class="card-body">-->
+<!--                <h5 class="card-title">Hvezdár</h5>-->
+<!--                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="col">-->
+<!--        <div class="card h-100 card_bg_roveri">-->
+<!--            <img src="img/odborky/mentor.png" class="card-img-top" alt="Mentor">-->
+<!--            <div class="card-body">-->
+<!--                <h5 class="card-title">Mentor</h5>-->
+<!--                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>
 </body>
 </html>

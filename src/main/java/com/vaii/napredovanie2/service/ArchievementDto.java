@@ -21,9 +21,12 @@ public class ArchievementDto {
     @NotEmpty
     private AchievementType type;
 
-    private String shortDescription;
+    private String description;
 
     @NotEmpty
     private String imagePath;
+
+    @NotEmpty
+    private String cardClass;
 
 }
