@@ -29,6 +29,6 @@ public class UserDto
     @NotEmpty(message = "Heslo musi byt vyplnene")
     private String password;
 
-    @NotEmpty
+
     private Role role;
 }

@@ -1,6 +1,5 @@
 package com.vaii.napredovanie2.controller;
 
-import com.vaii.napredovanie2.entity.Achievement;
 import com.vaii.napredovanie2.service.ArchievementDto;
 import com.vaii.napredovanie2.service.ArchievementService;
 import org.springframework.stereotype.Controller;
@@ -8,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/achievement")
+@RequestMapping("/odborka")
 public class AchievementController {
 
     private ArchievementService achievementService;

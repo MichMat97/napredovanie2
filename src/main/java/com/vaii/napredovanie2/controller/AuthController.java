@@ -4,6 +4,7 @@ import com.vaii.napredovanie2.entity.User;
 import com.vaii.napredovanie2.service.UserDto;
 import com.vaii.napredovanie2.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -104,6 +105,7 @@ public class AuthController {
         return "/index";
     }
 
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/deleteUser")
     public String deleteUser(@RequestParam String email, Model model) {
         User existingUser = userService.findUserByEmail(email);

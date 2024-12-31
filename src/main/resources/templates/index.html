@@ -22,14 +22,14 @@
                 <div class="collapse navbar-collapse" id="navbarColor02">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{index}">Domov</a>
+                            <a class="nav-link active" aria-current="page" th:href="@{/index}">Domov</a>
                         </li>
                         <li class="nav-item dropdown">
                             <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 Program
                             </button>
                             <ul class="dropdown-menu dropdown-menu">
-                                <li><a class="dropdown-item" th:href="@{odborky}">Odborky</a></li>
+                                <li><a class="dropdown-item" th:href="@{/odborky}">Odborky</a></li>
                                 <li><a class="dropdown-item disabled" aria-disabled="true">Výzvz</a></li>
                                 <li><a class="dropdown-item disabled" aria-disabled="true">Voľné programové moduly</a></li>
                             </ul>
@@ -39,7 +39,7 @@
                             <a class="nav-link disabled" aria-disabled="true">Moje napredovanie</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{about}">O stránke</a>
+                            <a class="nav-link" th:href="@{/about}">O stránke</a>
                         </li>
                     </ul>
                 </div>
@@ -52,12 +52,18 @@
             </div>
             <div class="menu-item" id="prave-menu">
                 <div th:if="${#authentication.authenticated and #authentication.name != 'anonymousUser'}">
-                    <div class="svetly-text">Prihlásený ako: <br>
-                        <span th:text="${#authentication.name}"></span> </div>
-                    <button class="btn btn-outline-light" type="button" th:onclick="|window.location.href='/logout'|">Odhlásiť</button>
+                    <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Prihlásený ako: <span th:text="${#authentication.name}"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/odborky}">Moje napredovanie</a></li>
+                        <li><a class="dropdown-item" th:attr="onclick='editUserScr(\'' + ${#authentication.name} + '\')'">Zmena hesla</a></li>
+                        <li><a class="dropdown-item" th:href="@{/logout}">Odhlásiť</a></li>
+                    </ul>
                 </div>
-                <div th:if="${#authentication.name == 'anonymousUser' or !#authentication.authenticated}">
+                <div class="nav-item dropdown" th:if="${#authentication.name == 'anonymousUser' or !#authentication.authenticated}">
                     <button class="btn btn-outline-light" type="button" th:onclick="|window.location.href='/login'|">Prihlásiť</button>
+
                 </div>
             </div>
     </div>

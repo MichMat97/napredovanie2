@@ -36,7 +36,6 @@ public class SpringSecurity {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-//
         return (web) -> web.ignoring().requestMatchers("../resources/static/img/**");
     }
 
@@ -44,19 +43,19 @@ public class SpringSecurity {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authorize) -> authorize
+                .requestMatchers("/deleteUser**").hasRole("ADMIN")
+                .requestMatchers("/users").hasRole("ADMIN")
+                .requestMatchers("/editUser**").authenticated()
                 .requestMatchers("/register/**").permitAll()
                 .requestMatchers("/img/**").permitAll()
                 .requestMatchers("/css/**").permitAll()
                 .requestMatchers("/JavaSctipt/**").permitAll()
                 .requestMatchers("/index").permitAll()
-                .requestMatchers("/editUser**").authenticated()
-                .requestMatchers("/deleteUser**").authenticated()
                 .requestMatchers("/odborky").permitAll()
                 .requestMatchers("/kontakt").permitAll()
                 .requestMatchers("/about").permitAll()
-                .requestMatchers("/achievement/**").permitAll()
+                .requestMatchers("/odborka/**").permitAll()
                 .requestMatchers("/").permitAll()
-                .requestMatchers("/users").hasRole("ADMIN")
         ).formLogin(
                 form -> form
                         .loginPage("/login")
