@@ -2,9 +2,11 @@ package com.vaii.napredovanie2.controller;
 
 import com.vaii.napredovanie2.entity.User;
 import com.vaii.napredovanie2.service.UserDto;
+import com.vaii.napredovanie2.service.UserDtoForPasswd;
 import com.vaii.napredovanie2.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +22,8 @@ import java.util.List;
 public class AuthController {
 
     private UserService userService;
+
+    private SecurityContextHolder securityContextHolder;
 
     public AuthController(UserService userService) {
         this.userService = userService;
@@ -38,8 +42,13 @@ public class AuthController {
 
     // handler method to handle login request
     @GetMapping("/login")
-    public String login(){
-        return "login";
+    public String login(Principal principal, HttpServletRequest request){
+        if (principal != null) {
+            // Ak je používateľ prihlásený, odhlási ho
+            SecurityContextHolder.clearContext(); // Čistí prihlásenie
+            request.getSession().invalidate(); // Zruší reláciu
+        }
+        return "login"; // Zobrazí stránku login
     }
 
     // handler method to handle user registration form request
@@ -107,7 +116,7 @@ public class AuthController {
 
     //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/deleteUser")
-    public String deleteUser(@RequestParam String email, Model model) {
+    public String deleteUser(@RequestParam String email) {
         User existingUser = userService.findUserByEmail(email);
         if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
             // Aktualizovať informácie o používateľovi v databáze
@@ -129,5 +138,37 @@ public class AuthController {
         List<UserDto> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "users";
+    }
+
+    //zobrazenie editovacieho formu
+    @GetMapping("/editUserPasswd")
+    public String showEditPasswdForm(@RequestParam String email,Principal principal, Model model) {
+        String prislasenyPouzivatel = principal.getName();
+
+        if (!email.equals(prislasenyPouzivatel)) {
+            return "redirect:/login";
+        }
+
+        // Načítať informácie o používateľovi z databázy podľa userId
+        User user = userService.findUserByEmail(email);
+
+        // Pridať používateľa do modelu
+        model.addAttribute("user", user);
+
+        // Navigovať na stránku s formulárom na úpravu
+        return "editUserPasswd";
+    }
+
+    //ulozenie noveho hesla
+    @PostMapping("/editUserPasswd")
+    public String editUserPasswd(@Valid @ModelAttribute("user") UserDtoForPasswd userDto){
+        User existingUser = userService.findUserByEmail(userDto.getEmail());
+
+        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
+            // Aktualizovať informácie o používateľovi v databáze
+            userService.updateUserPasswd(existingUser.getId(), userDto.getEmail(), userDto.getPassword());
+        }
+        // Presmerovať na inú stránku po úprave
+        return "/index";
     }
 }

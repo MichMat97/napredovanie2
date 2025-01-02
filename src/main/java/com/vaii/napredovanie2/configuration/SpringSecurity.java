@@ -46,6 +46,8 @@ public class SpringSecurity {
                 .requestMatchers("/deleteUser**").hasRole("ADMIN")
                 .requestMatchers("/users").hasRole("ADMIN")
                 .requestMatchers("/editUser**").authenticated()
+                .requestMatchers("/editUserPasswd**").authenticated()
+                .requestMatchers("/login").permitAll()
                 .requestMatchers("/register/**").permitAll()
                 .requestMatchers("/img/**").permitAll()
                 .requestMatchers("/css/**").permitAll()
@@ -69,6 +71,10 @@ public class SpringSecurity {
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .permitAll()
+        ).exceptionHandling(
+                exceptionHandling -> exceptionHandling
+                        //tu presmeruj namiesto 403 chyby
+                        .accessDeniedPage("/index")
         );
         return http.build();
     }

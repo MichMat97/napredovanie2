@@ -2,11 +2,17 @@
 <html lang="sk" xmlns:th="http://www.thymeleaf.org/">
 <head>
   <meta charset="UTF-8">
-  <title>Program</title>
+  <title>Registrácia</title>
+  <link rel="icon" type="image/svg+xml" th:href="@{/img/motherboard-fill.svg}"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+          crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="stylesheet" th:href="@{/css/style.css}"/>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script type="text/javascript" th:src="@{/JavaSctipt/editUserRedirect.js}"></script>
+  <script type="text/javascript" th:src="@{/JavaSctipt/additionalRegistrationFormValidation.js}"></script>
 </head>
 <body>
 <!-- navbar je upravenou verziou z https://getbootstrap.com/docs/5.3/components/navbar/ -->
@@ -68,10 +74,44 @@
   </div>
 </nav>
 <div class="container">
-  <h1 th:text="${achievement.name}"></h1>
-  <img th:src="'../' + ${achievement.imagePath}" th:alt="${achievement.name}">
-  <p th:text="${achievement.description}"></p>
-</div>
+  <div class="row col-md-8 offset-md-2">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="text-center">Zmena hesla</h2>
+      </div>
+      <div th:if="${param.success}">
+        <div class="alert alert-info">
+          Používateľské heslo bol úspešne zmenené
+        </div>
+      </div>
+      <div class="card-body">
+        <form method="post" role="form" onsubmit="return passwordCheck()" th:action="@{/editUserPasswd}" th:object="${user}">
 
+          <div class="form-group mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input class="form-control" id="email" th:required="String" required name="email" placeholder="Zadaj e-mail" th:value="${user.getEmail()}" type="email" readonly/>
+            <p th:errors="${user.getEmail()}" class="text-danger" th:if="${#fields.hasErrors('email')}"></p>
+            <p id="emailError" class="text-danger"></p>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="password" class="form-label">Heslo</label>
+            <input class="form-control" id="password" th:required="String" required name="password" placeholder="Nové heslo" type="password"/>
+            <p id="passwordError" class="text-danger"></p>
+          </div>
+          <div class="form-group mb-3">
+            <label for="password2" class="form-label">Heslo</label>
+            <input class="form-control" id="password2" th:required="String" required name="password2" placeholder="Zopakuj heslo" type="password"/>
+            <p id="passwordError2" class="text-danger"></p>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" type="submit">Uložiť</button>
+            <a class="btn btn-primary" th:href="@{/index}">Zrušiť</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+    <script type="text/javascript" th:src="@{/JavaSctipt/editUserRedirect.js}"></script>
 </head>
 <body>
 <!-- navbar je upravenou verziou z https://getbootstrap.com/docs/5.3/components/navbar/ -->
@@ -51,13 +51,18 @@
             </form>
         </div>
         <div class="menu-item" id="prave-menu">
-            <div th:if="${#authentication.authenticated and #authentication.name != 'anonymousUser'}">
-                <div class="svetly-text">Prihlásený ako: <br>
-                    <span th:text="${#authentication.name}"></span> </div>
-                <button class="btn btn-outline-light" type="button" th:onclick="|window.location.href='/logout'|">Odhlásiť</button>
+            <div class="nav-item dropdown" th:if="${#authentication != null and #authentication.name != 'anonymousUser'}">
+                <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Prihlásený ako: <span th:text="${#authentication.name}"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/odborky}">Moje napredovanie</a></li>
+                    <li><a class="dropdown-item" th:attr="onclick='editUserPasswdScr(\'' + ${#authentication.name} + '\')'">Zmena hesla</a></li>
+                    <li><a class="dropdown-item" th:href="@{/logout}">Odhlásiť</a></li>
+                </ul>
             </div>
-            <div th:if="${#authentication.name == 'anonymousUser' or !#authentication.authenticated}">
-                <button class="btn btn-outline-light" type="button" th:onclick="|window.location.href='/login'|">Prihlásiť</button>
+            <div class="nav-item dropdown" th:if="${#authentication == null or #authentication.name == 'anonymousUser'}">
+                <a class="btn btn-outline-light" th:href="@{/login}">Prihlásiť</a>
             </div>
         </div>
     </div>
@@ -71,85 +76,13 @@
             <img th:src="@{${achievement.imagePath}}" class="card-img-top" th:alt="${achievement.name}">
             <div class="card-body">
                 <h5 class="card-title"><p th:text="${achievement.name}"></p></h5>
+<!--                TODO    skusit zlucit tieto dva p tagy-->
                 <p class="card-text"><p th:text="${achievement.description}"></p></p>
             </div>
         </div>
         </a>
     </div>
     <!-- --------------------------------------------------------------------- -->
-<!--    <div class="col">-->
-<!--        <div class="card h-100 card_bg_skauti">-->
-<!--            <img src="img/odborky/botanik.png" class="card-img-top" alt="Boranik">-->
-<!--            <div class="card-body">-->
-<!--                <h5 class="card-title">Botanik</h5>-->
-<!--                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--    <div class="col">-->
-<!--        <div class="card h-100 card_bg_vlcata">-->
-<!--            <img src="img/odborky/animacik.png" class="card-img-top" alt="Animáčik">-->
-<!--            <div class="card-body">-->
-<!--                <h5 class="card-title">Animáčik</h5>-->
-<!--                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="col">-->
-<!--        <div class="card h-100 card_bg_roveri">-->
-<!--            <img src="img/odborky/cajickar.png" class="card-img-top" alt="Čajíčkar">-->
-<!--            <div class="card-body">-->
-<!--                <h5 class="card-title">Čajíčkar</h5>-->
-<!--                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="col">-->
-<!--        <div class="card h-100 card_bg_vlcata">-->
-<!--            <img src="img/odborky/anjel.png" class="card-img-top" alt="Anjel">-->
-<!--            <div class="card-body">-->
-<!--                <h5 class="card-title">Anjel</h5>-->
-<!--                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="col">-->
-<!--        <div class="card h-100 card_bg_roveri">-->
-<!--            <img src="img/odborky/charat.png" class="card-img-top" alt="Chatár">-->
-<!--            <div class="card-body">-->
-<!--                <h5 class="card-title">Chatár</h5>-->
-<!--                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="col">-->
-<!--        <div class="card h-100 card_bg_skauti">-->
-<!--            <img src="img/odborky/geolog.png" class="card-img-top" alt="Geológ">-->
-<!--            <div class="card-body">-->
-<!--                <h5 class="card-title">Geológ</h5>-->
-<!--                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="col">-->
-<!--        <div class="card h-100 card_bg_skauti">-->
-<!--            <img src="img/odborky/hvezdar.png" class="card-img-top" alt="Hvezdár">-->
-<!--            <div class="card-body">-->
-<!--                <h5 class="card-title">Hvezdár</h5>-->
-<!--                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="col">-->
-<!--        <div class="card h-100 card_bg_roveri">-->
-<!--            <img src="img/odborky/mentor.png" class="card-img-top" alt="Mentor">-->
-<!--            <div class="card-body">-->
-<!--                <h5 class="card-title">Mentor</h5>-->
-<!--                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
 </div>
 </body>
 </html>

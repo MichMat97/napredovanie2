@@ -57,13 +57,18 @@
       </form>
     </div>
     <div class="menu-item" id="prave-menu">
-      <div th:if="${#authentication.authenticated and #authentication.name != 'anonymousUser'}">
-        <div class="svetly-text">Prihlásený ako: <br>
-          <span th:text="${#authentication.name}"></span> </div>
-        <button class="btn btn-outline-light" type="button" th:onclick="|window.location.href='/logout'|">Odhlásiť</button>
+      <div class="nav-item dropdown" th:if="${#authentication != null and #authentication.name != 'anonymousUser'}">
+        <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          Prihlásený ako: <span th:text="${#authentication.name}"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" th:href="@{/odborky}">Moje napredovanie</a></li>
+          <li><a class="dropdown-item" th:attr="onclick='editUserPasswdScr(\'' + ${#authentication.name} + '\')'">Zmena hesla</a></li>
+          <li><a class="dropdown-item" th:href="@{/logout}">Odhlásiť</a></li>
+        </ul>
       </div>
-      <div th:if="${#authentication.name == 'anonymousUser' or !#authentication.authenticated}">
-        <button class="btn btn-outline-light" type="button" th:onclick="|window.location.href='/login'|">Prihlásiť</button>
+      <div class="nav-item dropdown" th:if="${#authentication == null or #authentication.name == 'anonymousUser'}">
+        <a class="btn btn-outline-light" th:href="@{/login}">Prihlásiť</a>
       </div>
     </div>
   </div>
@@ -82,33 +87,33 @@
       <div class="card-body">
         <form method="post" role="form" onsubmit="return validation()" th:action="@{/editUser}" th:object="${user}">
           <div class="form-group mb-3">
-            <label class="form-label">Meno</label>
+            <label for="firstName" class="form-label">Meno</label>
             <input class="form-control" id="firstName" th:required="String" required name="firstName" placeholder="Zadaj meno" th:value="${user.getName().split(' ')[0]}" type="text"/>
             <p id="firstNameError" class="text-danger"></p>
           </div>
 
           <div class="form-group mb-3">
-            <label class="form-label">Priezvisko</label>
+            <label for="lastName" class="form-label">Priezvisko</label>
             <input class="form-control" id="lastName" th:required="String" required name="lastName" placeholder="Zadaj priezvisko" th:value="${user.getName().split(' ')[1]}" type="text"/>
             <p id="lastNameError" class="text-danger"></p>
           </div>
 
           <div class="form-group mb-3">
-            <label class="form-label">Email</label>
+            <label for="email" class="form-label">Email</label>
             <input class="form-control" id="email" th:required="String" required name="email" placeholder="Zadaj e-mail" th:value="${user.getEmail()}" type="email"/>
             <p th:errors="${user.getEmail()}" class="text-danger" th:if="${#fields.hasErrors('email')}"></p>
             <p id="emailError" class="text-danger"></p>
           </div>
 
           <div class="form-group mb-3">
-            <label class="form-label">Heslo</label>
-            <input class="form-control" id="password" th:required="String" required name="password" placeholder="Zadaj heslo" th:value="${user.getPassword()}" type="password"/>
+            <label for="password" class="form-label">Heslo</label>
+            <input class="form-control" id="password" th:required="String" required name="password" placeholder="Zadaj heslo" type="password"/>
             <p th:errors="${user.getPassword()}" class="text-danger" th:if="${#fields.hasErrors('password')}"></p>
             <p id="passwordError" class="text-danger"></p>
           </div>
           <div class="form-group">
             <button class="btn btn-primary" type="submit">Uložiť</button>
-            <button class="btn btn-primary" type="button" th:onclick="|window.location.href='/users'|">Zrušiť</button>
+            <a class="btn btn-primary" th:href="@{/users}">Zrušiť</a>
           </div>
         </form>
       </div>

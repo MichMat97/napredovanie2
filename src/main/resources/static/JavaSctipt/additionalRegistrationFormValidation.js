@@ -43,3 +43,35 @@ function validation() {
 
     return true;
 }
+
+function passwordCheck() {
+    document.getElementById("emailError").innerHTML = "";
+    document.getElementById("passwordError").innerHTML = "";
+
+    let pass = document.getElementById("password").value;
+    let pass2 = document.getElementById("password2").value;
+
+    if (pass === "") {
+        document.getElementById("passwordError").innerHTML =
+            " ** Heslo musí byť zadané";
+        return false;
+    }
+    if (pass2 === "") {
+        document.getElementById("passwordError2").innerHTML =
+            " ** Zopakujte heslo";
+        return false;
+    }
+    if (pass.length < 5 || pass.length > 20) {
+        document.getElementById("passwordError").innerHTML =
+            " ** Dĺžka hesla musí byť medzi 5 a 20";
+        return false;
+    }
+    if(pass !== pass2){
+        document.getElementById("passwordError2").innerHTML =
+            " ** Heslá sa musia zhodovať";
+        return false;
+    }
+
+
+    return true;
+}
