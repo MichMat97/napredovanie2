@@ -10,10 +10,12 @@
 .menu {
     border: 2px solid #ffffff;
 }
+
 .menu:hover {
     background: #ffffff;
     color: black;
 }
+
 .menu.active:hover {
     background: #ffffff;
     color: black;
@@ -24,7 +26,7 @@
 }
 
 .form-center {
-    display:flex;
+    display: flex;
     justify-content: center;
 }
 
@@ -65,11 +67,11 @@ h1, h2 {
     color: green;
 }
 
-.dokumenty a{
+.dokumenty a {
     color: blue;
 }
 
-.dokumenty tr:hover td:not(td:last-child:hover){
+.dokumenty tr:hover td:not(td:last-child:hover) {
     background-color: darkblue;
     color: white;
 }

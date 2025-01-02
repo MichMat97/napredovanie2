@@ -11,14 +11,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="achievements")
-public class Achievement
-{
+@Table(name = "achievements")
+public class Achievement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable=false, unique=true)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @ManyToOne
@@ -28,10 +27,11 @@ public class Achievement
     @Column(length = 500)
     private String description;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String imgPath;
 
-    @Column(name="cardclass", nullable = false)
-    private String cardClass;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "cardclass", nullable = false)
+    private CardClass cardClass;
 
 }

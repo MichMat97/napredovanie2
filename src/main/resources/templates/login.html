@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="sk" xmlns:th="http://www.thymeleaf.org/" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="sk" xmlns:th="http://www.thymeleaf.org/"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Prihlásenie</title>
@@ -19,9 +20,10 @@
     <div class="container-fluid">
         <div class="menu-item" id="lave-menu">
             <a class="navbar-brand" href="https://www.skauting.sk/skauti/program/">
-                <img th:src="@{/img/logoSLSK.png}" class="logo-menu"  alt="logo"/>
+                <img th:src="@{/img/logoSLSK.png}" class="logo-menu" alt="logo"/>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02"
+                    aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarColor02">
@@ -56,17 +58,22 @@
             </form>
         </div>
         <div class="menu-item" id="prave-menu">
-            <div class="nav-item dropdown" th:if="${#authentication != null and #authentication.name != 'anonymousUser'}">
+            <div class="nav-item dropdown"
+                 th:if="${#authentication != null and #authentication.name != 'anonymousUser'}">
                 <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     Prihlásený ako: <span th:text="${#authentication.name}"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" th:href="@{/odborky}">Moje napredovanie</a></li>
-                    <li><a class="dropdown-item" th:attr="onclick='editUserPasswdScr(\'' + ${#authentication.name} + '\')'">Zmena hesla</a></li>
+                    <li><a class="dropdown-item" th:href="@{/odborka/save}">Pridaj napredovanie</a></li>
+                    <li><a class="dropdown-item"
+                           th:attr="onclick='editUserPasswdScr(\'' + ${#authentication.name} + '\')'">Zmena hesla</a>
+                    </li>
                     <li><a class="dropdown-item" th:href="@{/logout}">Odhlásiť</a></li>
                 </ul>
             </div>
-            <div class="nav-item dropdown" th:if="${#authentication == null or #authentication.name == 'anonymousUser'}">
+            <div class="nav-item dropdown"
+                 th:if="${#authentication == null or #authentication.name == 'anonymousUser'}">
                 <a class="btn btn-outline-light" th:href="@{/login}">Prihlásiť</a>
             </div>
         </div>
@@ -88,15 +95,17 @@
                     <h2 class="text-center">Login Form</h2>
                 </div>
                 <div class="card-body">
-                    <form method="post" role="form" th:action="@{/login}" class="form-horizontal" >
+                    <form method="post" role="form" th:action="@{/login}" class="form-horizontal">
                         <div class="form-group mb-3">
                             <label for="username" class="control-label"> Email</label>
-                            <input type="text" id="username" th:required="String" required name="username" class="form-control" placeholder="Enter email address" />
+                            <input type="text" id="username" th:required="String" required name="username"
+                                   class="form-control" placeholder="Enter email address"/>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="password" class="control-label"> Password</label>
-                            <input type="password" id="password" th:required="String" required name="password" class="form-control" placeholder="Enter password" />
+                            <input type="password" id="password" th:required="String" required name="password"
+                                   class="form-control" placeholder="Enter password"/>
                         </div>
                         <div class="form-group mb-3">
                             <button type="submit" class="btn btn-primary">Prihlásiť</button>

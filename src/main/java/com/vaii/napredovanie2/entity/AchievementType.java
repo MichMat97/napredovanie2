@@ -14,14 +14,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="achievementtypes")
-public class AchievementType
-{
+@Table(name = "achievementtypes")
+public class AchievementType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable=false, unique=true)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @OneToMany(mappedBy = "type", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -2,6 +2,7 @@
     width: 50px;
     height: 50px;
 }
+
 body {
     font-family: Georama, Calibri, Tahoma, sans-serif;
 }
@@ -14,26 +15,31 @@ body {
 
 }
 
-@media  (max-width: 700px) {
+@media (max-width: 700px) {
     .menu-bar {
         justify-content: center !important;
     }
+
     .menu-item {
         display: flex;
         width: 900px;
         flex-direction: column !important;
         justify-content: center;
     }
+
     div#lave-menu {
         order: 1;
     }
+
     div#stredne-menu {
         order: 3;
     }
+
     div#prave-menu {
         order: 1;
     }
 }
+
 .menu-item {
     display: flex;
     align-items: center;
@@ -56,20 +62,22 @@ body {
     max-width: 50%;
 }
 
-.najpopularnejsie{
+.najpopularnejsie {
     background-color: rgba(128, 128, 128, 0.13);
     height: 300px;
 }
 
 
 .col {
-    min-width: 20% ;
+    min-width: 20%;
+    max-width: 25%;
     margin: 1px;
 }
 
-.card img{
+.card img {
     max-width: 30%;
     max-height: 30%;
+    margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -88,7 +96,7 @@ body {
     background: red !important;
 }
 
-.testimonial{
+.testimonial {
     display: flex;
     align-items: center;
     margin-left: auto;

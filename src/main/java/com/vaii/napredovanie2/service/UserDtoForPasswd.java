@@ -11,8 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDtoForPasswd
-{
+public class UserDtoForPasswd {
     private Long id;
 
     @NotEmpty(message = "Email musi byt vyplneny")

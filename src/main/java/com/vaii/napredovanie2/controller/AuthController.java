@@ -31,7 +31,7 @@ public class AuthController {
 
     // handler method to handle home page request
     @GetMapping("/index")
-    public String home(Principal principal, Model model){
+    public String home(Principal principal, Model model) {
         if (principal != null) {
             // Get the username of the logged-in user
             String username = principal.getName();
@@ -42,7 +42,7 @@ public class AuthController {
 
     // handler method to handle login request
     @GetMapping("/login")
-    public String login(Principal principal, HttpServletRequest request){
+    public String login(Principal principal, HttpServletRequest request) {
         if (principal != null) {
             // Ak je používateľ prihlásený, odhlási ho
             SecurityContextHolder.clearContext(); // Čistí prihlásenie
@@ -53,7 +53,7 @@ public class AuthController {
 
     // handler method to handle user registration form request
     @GetMapping("/register")
-    public String showRegistrationForm(Model model){
+    public String showRegistrationForm(Model model) {
         // create model object to store form data
         UserDto user = new UserDto();
         model.addAttribute("user", user);
@@ -64,10 +64,10 @@ public class AuthController {
     @PostMapping("/register/save")
     public String registration(@Valid @ModelAttribute("user") UserDto userDto,
                                BindingResult result,
-                               Model model){
+                               Model model) {
         User existingUser = userService.findUserByEmail(userDto.getEmail());
 
-        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
+        if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
             result.rejectValue("email", null,
                     "There is already an account registered with the same email");
         } else if (userDto.getFirstName().isEmpty() || userDto.getFirstName() == null) {
@@ -81,7 +81,7 @@ public class AuthController {
                     "Heslo musí vyť vyplnené");
         }
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             model.addAttribute("user", userDto);
             return "/register";
         }
@@ -103,12 +103,12 @@ public class AuthController {
     }
 
     @PostMapping("/editUser")
-    public String editUser(@Valid @ModelAttribute("user") UserDto userDto){
+    public String editUser(@Valid @ModelAttribute("user") UserDto userDto) {
         User existingUser = userService.findUserByEmail(userDto.getEmail());
 
-        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
+        if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
             // Aktualizovať informácie o používateľovi v databáze
-            userService.updateUser(existingUser.getId(), userDto.getFirstName()+" "+userDto.getLastName(), userDto.getEmail(), userDto.getPassword());
+            userService.updateUser(existingUser.getId(), userDto.getFirstName() + " " + userDto.getLastName(), userDto.getEmail(), userDto.getPassword());
         }
         // Presmerovať na inú stránku po úprave
         return "/index";
@@ -118,7 +118,7 @@ public class AuthController {
     @GetMapping("/deleteUser")
     public String deleteUser(@RequestParam String email) {
         User existingUser = userService.findUserByEmail(email);
-        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
+        if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
             // Aktualizovať informácie o používateľovi v databáze
             userService.deleteUser(existingUser.getEmail());
         }
@@ -129,7 +129,7 @@ public class AuthController {
 
     // handler method to handle list of users
     @GetMapping("/users")
-    public String users(Principal principal, Model model){
+    public String users(Principal principal, Model model) {
         if (principal != null) {
             // Get the username of the logged-in user
             String username = principal.getName();
@@ -142,7 +142,7 @@ public class AuthController {
 
     //zobrazenie editovacieho formu
     @GetMapping("/editUserPasswd")
-    public String showEditPasswdForm(@RequestParam String email,Principal principal, Model model) {
+    public String showEditPasswdForm(@RequestParam String email, Principal principal, Model model) {
         String prislasenyPouzivatel = principal.getName();
 
         if (!email.equals(prislasenyPouzivatel)) {
@@ -161,10 +161,10 @@ public class AuthController {
 
     //ulozenie noveho hesla
     @PostMapping("/editUserPasswd")
-    public String editUserPasswd(@Valid @ModelAttribute("user") UserDtoForPasswd userDto){
+    public String editUserPasswd(@Valid @ModelAttribute("user") UserDtoForPasswd userDto) {
         User existingUser = userService.findUserByEmail(userDto.getEmail());
 
-        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
+        if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
             // Aktualizovať informácie o používateľovi v databáze
             userService.updateUserPasswd(existingUser.getId(), userDto.getEmail(), userDto.getPassword());
         }

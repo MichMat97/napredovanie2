@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <title>Napredovanie SLSK</title>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
     <script type="text/javascript" th:src="@{/JavaSctipt/editUserRedirect.js}"></script>
 </head>
 <body>
@@ -14,9 +17,10 @@
     <div class="container-fluid">
         <div class="menu-item" id="lave-menu">
             <a class="navbar-brand" href="https://www.skauting.sk/skauti/program/">
-                <img th:src="@{/img/logoSLSK.png}" class="logo-menu"  alt="logo"/>
+                <img th:src="@{/img/logoSLSK.png}" class="logo-menu" alt="logo"/>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02"
+                    aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarColor02">
@@ -50,49 +54,62 @@
             </form>
         </div>
         <div class="menu-item" id="prave-menu">
-            <div class="nav-item dropdown" th:if="${#authentication != null and #authentication.name != 'anonymousUser'}">
+            <div class="nav-item dropdown"
+                 th:if="${#authentication != null and #authentication.name != 'anonymousUser'}">
                 <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     Prihlásený ako: <span th:text="${#authentication.name}"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" th:href="@{/odborky}">Moje napredovanie</a></li>
-                    <li><a class="dropdown-item" th:attr="onclick='editUserPasswdScr(\'' + ${#authentication.name} + '\')'">Zmena hesla</a></li>
+                    <li><a class="dropdown-item" th:href="@{/odborka/save}">Pridaj napredovanie</a></li>
+                    <li><a class="dropdown-item"
+                           th:attr="onclick='editUserPasswdScr(\'' + ${#authentication.name} + '\')'">Zmena hesla</a>
+                    </li>
                     <li><a class="dropdown-item" th:href="@{/logout}">Odhlásiť</a></li>
                 </ul>
             </div>
-            <div class="nav-item dropdown" th:if="${#authentication == null or #authentication.name == 'anonymousUser'}">
+            <div class="nav-item dropdown"
+                 th:if="${#authentication == null or #authentication.name == 'anonymousUser'}">
                 <a class="btn btn-outline-light" th:href="@{/login}">Prihlásiť</a>
             </div>
         </div>
     </div>
 </nav>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac ex feugiat, tristique nisi nec, vestibulum elit. Sed ultricies, magna eu ultrices tristique, lorem magna mattis justo, suscipit porta neque lacus et sapien. Pellentesque augue neque, pretium non neque sit amet, dictum vestibulum lectus. Sed porta, lorem id tempor egestas, lacus est tempus massa, in convallis diam lectus vitae libero. Donec lorem ligula, pretium nec luctus sed, aliquam quis sem. In euismod pretium sem at vehicula. Vestibulum luctus condimentum orci viverra vestibulum. Donec interdum id est eget malesuada. Proin ut lorem fringilla massa mollis commodo quis sed quam.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac ex feugiat, tristique nisi nec, vestibulum elit. Sed
+ultricies, magna eu ultrices tristique, lorem magna mattis justo, suscipit porta neque lacus et sapien. Pellentesque
+augue neque, pretium non neque sit amet, dictum vestibulum lectus. Sed porta, lorem id tempor egestas, lacus est tempus
+massa, in convallis diam lectus vitae libero. Donec lorem ligula, pretium nec luctus sed, aliquam quis sem. In euismod
+pretium sem at vehicula. Vestibulum luctus condimentum orci viverra vestibulum. Donec interdum id est eget malesuada.
+Proin ut lorem fringilla massa mollis commodo quis sed quam.
 <br>
 Najviac plnené programové prvky:
 <!-- carousel je upravenou verziou z https://getbootstrap.com/docs/5.3/components/carousel/ -->
 <div id="carouselExampleCaptions" class="main carousel carousel-dark slide">
     <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
     </div>
     <div class="carousel-inner">
         <div class="carousel-item najpopularnejsie active">
-            <img th:src="@{img/odborky/botanik.png}" class="d-block" alt="Botanik">
+            <img th:src="@{/img/odborky/botanik.png}" class="d-block" alt="Botanik">
             <div class="carousel-caption">
                 <h5>Botanik</h5>
                 <p>Najpopulárnejšia odborka</p>
             </div>
         </div>
         <div class="carousel-item najpopularnejsie">
-            <img th:src="@{img/vyzvy/modry_zivot.png}" class="d-block" alt="Modrý život">
+            <img th:src="@{/img/vyzvy/modry_zivot.png}" class="d-block" alt="Modrý život">
             <div class="carousel-caption">
                 <h5>Modrý život</h5>
                 <p>Najpopulárnejšia výzva</p>
             </div>
         </div>
         <div class="carousel-item najpopularnejsie">
-            <img th:src="@{img/vpm/nox.png}" class="d-block" alt="NOX">
+            <img th:src="@{/img/vpm/nox.png}" class="d-block" alt="NOX">
             <div class="carousel-caption">
                 <h5>NOX</h5>
                 <p>Najpopulárnejší voľný programový modul</p>

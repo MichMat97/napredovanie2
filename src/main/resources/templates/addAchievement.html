@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="sk" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="sk" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title>Pouzivatelia</title>
+    <title>Pridanie napredovania</title>
     <link rel="icon" type="image/svg+xml" th:href="@{/img/motherboard-fill.svg}"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -12,7 +11,8 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
-    <script type="text/javascript" th:src="@{JavaSctipt/editUserRedirect.js}"></script>
+    <script type="text/javascript" th:src="@{/JavaSctipt/editUserRedirect.js}"></script>
+    <script type="text/javascript" th:src="@{/JavaSctipt/additionalRegistrationFormValidation.js}"></script>
 </head>
 <body>
 <!-- navbar je upravenou verziou z https://getbootstrap.com/docs/5.3/components/navbar/ -->
@@ -80,39 +80,65 @@
     </div>
 </nav>
 <div class="container">
-    <div class="row col-md-10">
-        <h2>List of Registered Users</h2>
+    <div class="row col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Pridanie napredovania</h2>
+            </div>
+            <div th:if="${param.success}">
+                <div class="alert alert-info">
+                    Napredovanie bolo úspešne pridané
+                </div>
+            </div>
+            <div class="card-body">
+                <form method="post" role="form" onsubmit="return validation()" enctype="multipart/form-data"
+                      th:action="@{/odborka/save}" th:object="${achievement}">
+                    <input type="hidden" th:field="*{id}">
+                    <div class="form-group mb-3">
+                        <label for="name" class="form-label">Názov:</label>
+                        <input id="name" class="form-control" type="text" th:required="String" required
+                               placeholder="Názov napredovania" th:field="*{name}">
+                        <p id="nameError" class="text-danger"></p>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="type" class="form-label">Typ:</label>
+                        <select id="type" name="type" th:field="*{type.id}">
+                            <option th:each="type : ${achievementTypes}" th:value="${type.id}"
+                                    th:text="${type.name}"></option>
+                        </select>
+                        <p id="typeError" class="text-danger"></p>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="description" class="form-label">Popis:</label>
+                        <textarea id="description" th:field="*{description}" maxlength="500"></textarea>
+                        <p id="descriptionError" class="text-danger"></p>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="imgPath" class="form-label">Cesta k obrázku:</label>
+                        <input type="text" id="imgPath" name="imgPath" th:field="*{imgPath}" required>
+                        <!--            <input type="file" id="file" name="file" required>-->
+                        <p id="imgPathError" class="text-danger"></p>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="cardClass">Veková kategória:</label>
+                        <select id="cardClass" th:field="*{cardClass}">
+                            <option th:each="class : ${T(com.vaii.napredovanie2.entity.CardClass).values()}"
+                                    th:value="${class}"
+                                    th:text="${class.displayName}"></option>
+                        </select>
+                        <p id="cardClassError" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Uložiť napredovanie</button>
+                        <a class="btn btn-primary" th:href="@{/odborky}">Zrušiť</a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <table class="table table-bordered table-hover">
-        <thead class="table-dark">
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Rola</th>
-            <th>Úprava</th>
-            <th>Mazanie</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${users}">
-            <td th:text="${user.firstName}"></td>
-            <td th:text="${user.lastName}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.role != null ? user.role.name : 'No Role'}"></td>
-            <td>
-                <button class="btn btn-outline-warning me-md-2" type="button"
-                        th:attr="onclick='editUserScr(\'' + ${user.email} + '\')'">Uprav
-                </button>
-            </td>
-            <td>
-                <button class="btn btn-outline-danger me-md-2" type="button"
-                        th:attr="onclick='deleteUserScr(\'' + ${user.email} + '\')'">Zmaž
-                </button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
 </div>
 </body>
 </html>

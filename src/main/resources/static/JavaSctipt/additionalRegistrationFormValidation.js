@@ -66,7 +66,7 @@ function passwordCheck() {
             " ** Dĺžka hesla musí byť medzi 5 a 20";
         return false;
     }
-    if(pass !== pass2){
+    if (pass !== pass2) {
         document.getElementById("passwordError2").innerHTML =
             " ** Heslá sa musia zhodovať";
         return false;

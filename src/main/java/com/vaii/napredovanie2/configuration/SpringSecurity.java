@@ -45,6 +45,9 @@ public class SpringSecurity {
         http.authorizeHttpRequests((authorize) -> authorize
                 .requestMatchers("/deleteUser**").hasRole("ADMIN")
                 .requestMatchers("/users").hasRole("ADMIN")
+                .requestMatchers("/zmazNapredovanie**").hasRole("ADMIN")
+                .requestMatchers("/odborka/save**").hasRole("ADMIN")
+                .requestMatchers("/odborka/upravNapredovanie**").hasRole("ADMIN")
                 .requestMatchers("/editUser**").authenticated()
                 .requestMatchers("/editUserPasswd**").authenticated()
                 .requestMatchers("/login").permitAll()
@@ -63,7 +66,7 @@ public class SpringSecurity {
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
                         //.defaultSuccessUrl("/users",true)
-                        .defaultSuccessUrl("/index",true)
+                        .defaultSuccessUrl("/index", true)
                         .permitAll()
         ).logout(
                 logout -> logout
@@ -71,10 +74,11 @@ public class SpringSecurity {
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .permitAll()
-        ).exceptionHandling(
-                exceptionHandling -> exceptionHandling
-                        //tu presmeruj namiesto 403 chyby
-                        .accessDeniedPage("/index")
+        ).exceptionHandling(exception -> exception
+                //tu presmeruj ak by si mal vratit status 403
+                .accessDeniedHandler((request, response, accessDeniedException) -> {
+                    response.sendRedirect("/index");
+                })
         );
         return http.build();
     }
